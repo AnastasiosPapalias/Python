@@ -4,7 +4,7 @@
 
 Snake Charmer 🐍 - A collection of Python scripts for everyday life.
 
-# Games
+## Games
  -[The Grand Mystic Fortune Teller 🔮](https://github.com/AnastasiosPapalias/Python/blob/main/fortuneteller.py)
 
 ## Support
