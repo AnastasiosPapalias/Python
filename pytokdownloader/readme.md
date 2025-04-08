@@ -1,7 +1,3 @@
-Below is the revised how-to guide in Markdown (`.md`) format, with all references to Git and `git clone` removed. The guide still includes detailed instructions for creating a Python app to download TikTok videos, with error handling, support for multiple downloads, a command-line interface, and optional enhancements. The script remains functional and includes a `requirements.txt` file for easy dependency installation.
-
----
-
 # How to Build a Python App to Download TikTok Videos
 
 This guide will walk you through creating a Python application to download TikTok videos using the `pyktok` library. The app includes error handling, support for downloading multiple videos, and a simple command-line interface. By the end, you'll have a working script that can download TikTok videos and save their metadata to a CSV file.
@@ -333,7 +329,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 6. **LICENSE**: An MIT License file (or your preferred license).
 
 Happy downloading! 🎥
-
----
-
-You can now upload these files directly to GitHub as part of your repository. Let me know if you need further adjustments!
