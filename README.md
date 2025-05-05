@@ -9,7 +9,7 @@ Snake Charmer 🐍 - A collection of Python scripts for everyday life.
 
 ## Apps
  - [Seasonal Foods, Greek Ed.](https://github.com/AnastasiosPapalias/Python/blob/main/epohika.py)
- - [Daily Mindfulness](https://github.com/AnastasiosPapalias/Python/dailymindfulness/dailymindfulness.py)
+ - [Daily Mindfulness](https://github.com/AnastasiosPapalias/Python/blob/main/dailymindfulness/dailymindfulness.py)
 
 ## Support
 
