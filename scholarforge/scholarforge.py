@@ -3,30 +3,30 @@
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                                                                              ║
-║    ███████╗ ██████╗██╗  ██╗ ██████╗ ██╗      █████╗ ██████╗ ███████╗       ║
-║    ██╔════╝██╔════╝██║  ██║██╔═══██╗██║     ██╔══██╗██╔══██╗██╔════╝       ║
-║    ███████╗██║     ███████║██║   ██║██║     ███████║██████╔╝█████╗         ║
-║    ╚════██║██║     ██╔══██║██║   ██║██║     ██╔══██║██╔══██╗██╔══╝         ║
-║    ███████║╚██████╗██║  ██║╚██████╔╝███████╗██║  ██║██║  ██║██║            ║
-║    ╚══════╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝            ║
+║   ███████╗  ██████╗  ██╗  ██╗  ██████╗  ██╗       █████╗  ██████╗          ║
+║  ██╔════╝ ██╔════╝  ██║  ██║ ██╔═══██╗ ██║      ██╔══██╗ ██╔══██╗         ║
+║  ███████╗ ██║       ███████║ ██║   ██║ ██║      ███████║ ██████╔╝          ║
+║  ╚════██║ ██║       ██╔══██║ ██║   ██║ ██║      ██╔══██║ ██╔══██╗          ║
+║  ███████║ ╚██████╗  ██║  ██║ ╚██████╔╝ ███████╗ ██║  ██║ ██║  ██║          ║
+║  ╚══════╝  ╚═════╝  ╚═╝  ╚═╝  ╚═════╝  ╚══════╝ ╚═╝  ╚═╝ ╚═╝  ╚═╝          ║
 ║                                                                              ║
-║         ███████╗ ██████╗ ██████╗  ██████╗ ███████╗                         ║
-║         ██╔════╝██╔═══██╗██╔══██╗██╔════╝ ██╔════╝                         ║
-║         █████╗  ██║   ██║██████╔╝██║  ███╗█████╗                           ║
-║         ██╔══╝  ██║   ██║██╔══██╗██║   ██║██╔══╝                           ║
-║         ██║     ╚██████╔╝██║  ██║╚██████╔╝███████╗                         ║
-║         ╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝                         ║
+║       ███████╗  ██████╗  ██████╗   ██████╗  ███████╗                       ║
+║       ██╔════╝ ██╔═══██╗ ██╔══██╗ ██╔════╝  ██╔════╝                       ║
+║       █████╗   ██║   ██║ ██████╔╝ ██║  ███╗ █████╗                         ║
+║       ██╔══╝   ██║   ██║ ██╔══██╗ ██║   ██║ ██╔══╝                         ║
+║       ██║      ╚██████╔╝ ██║  ██║ ╚██████╔╝ ███████╗                       ║
+║       ╚═╝       ╚═════╝  ╚═╝  ╚═╝  ╚═════╝  ╚══════╝                       ║
 ║                                                                              ║
-║   Academic Research & Knowledge Pipeline  ·  v3.0.0                        ║
-║   https://github.com/anastasiosp/scholarforge                               ║
+║   Academic Research & Knowledge Pipeline  ·  v3.3.0                        ║
+║   https://github.com/AnastasiosPapalias/scholarforge                        ║
 ║                                                                              ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
-ScholarForge — The definitive academic research pipeline tool.
+Scholar Forge — The definitive academic research pipeline tool.
 
 Two powerful modes in one unified CLI:
 
-  HARVEST   Search 6 academic APIs, score relevance, download open-access
+  HARVEST   Search 20 academic APIs, score relevance, download open-access
             documents (PDF/EPUB/HTML/TXT) into an organized local library.
 
   FORGE     Scan a folder of documents, extract full text, chunk intelligently,
@@ -36,16 +36,12 @@ Two powerful modes in one unified CLI:
   PIPELINE  Run both stages back-to-back: harvest → forge in one command.
 
 Sources (Harvest):
-  OpenAlex · Crossref · Google Books · Internet Archive · Open Library · PubMed
+  OpenAlex · Crossref · Semantic Scholar · OA.mg · CORE · DOAJ · Paperity
+  arXiv · SSRN · PubMed · PMC Full-Text · Europe PMC · Zenodo · Figshare
+  HAL · OpenAIRE · Google Books · Internet Archive · Open Library · EThOS/DART
 
 Formats (Forge):
   PDF · DOCX · TXT · Markdown · HTML · XML · JSON · CSV · TSV · RTF · YAML · TeX
-
-Outputs (Forge):
-  knowledge_dataset.jsonl   — AI-ready chunks, one per line
-  knowledge_sources.csv     — per-file inventory with status
-  knowledge_corpus.md       — readable combined corpus
-  knowledge_summary.json    — stats, warnings, extensions map
 
 Requirements:
   Python 3.8+  (zero mandatory third-party deps)
@@ -184,19 +180,19 @@ def print_banner() -> None:
     border = _c("═" * w, C.CYAN, C.BOLD)
     logo_lines = [
         "",
-        _c("  ███████╗ ██████╗██╗  ██╗ ██████╗ ██╗      █████╗ ██████╗ ███████╗", C.BRIGHT_CYAN, C.BOLD),
-        _c("  ██╔════╝██╔════╝██║  ██║██╔═══██╗██║     ██╔══██╗██╔══██╗██╔════╝", C.BRIGHT_CYAN, C.BOLD),
-        _c("  ███████╗██║     ███████║██║   ██║██║     ███████║██████╔╝█████╗  ", C.CYAN, C.BOLD),
-        _c("  ╚════██║██║     ██╔══██║██║   ██║██║     ██╔══██║██╔══██╗██╔══╝  ", C.CYAN, C.BOLD),
-        _c("  ███████║╚██████╗██║  ██║╚██████╔╝███████╗██║  ██║██║  ██║███████╗", C.BLUE, C.BOLD),
-        _c("  ╚══════╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝", C.BLUE, C.BOLD),
+        _c("   ███████╗  ██████╗  ██╗  ██╗  ██████╗  ██╗       █████╗  ██████╗ ", C.BRIGHT_CYAN, C.BOLD),
+        _c("  ██╔════╝ ██╔════╝  ██║  ██║ ██╔═══██╗ ██║      ██╔══██╗ ██╔══██╗", C.BRIGHT_CYAN, C.BOLD),
+        _c("  ███████╗ ██║       ███████║ ██║   ██║ ██║      ███████║ ██████╔╝ ", C.CYAN, C.BOLD),
+        _c("  ╚════██║ ██║       ██╔══██║ ██║   ██║ ██║      ██╔══██║ ██╔══██╗ ", C.CYAN, C.BOLD),
+        _c("  ███████║ ╚██████╗  ██║  ██║ ╚██████╔╝ ███████╗ ██║  ██║ ██║  ██║ ", C.BLUE, C.BOLD),
+        _c("  ╚══════╝  ╚═════╝  ╚═╝  ╚═╝  ╚═════╝  ╚══════╝ ╚═╝  ╚═╝ ╚═╝  ╚═╝ ", C.BLUE, C.BOLD),
         "",
-        _c("     ███████╗ ██████╗ ██████╗  ██████╗ ███████╗", C.BRIGHT_MAGENTA, C.BOLD),
-        _c("     ██╔════╝██╔═══██╗██╔══██╗██╔════╝ ██╔════╝", C.BRIGHT_MAGENTA, C.BOLD),
-        _c("     █████╗  ██║   ██║██████╔╝██║  ███╗█████╗  ", C.MAGENTA, C.BOLD),
-        _c("     ██╔══╝  ██║   ██║██╔══██╗██║   ██║██╔══╝  ", C.MAGENTA, C.BOLD),
-        _c("     ██║     ╚██████╔╝██║  ██║╚██████╔╝███████╗", C.BLUE, C.BOLD),
-        _c("     ╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝", C.BLUE, C.BOLD),
+        _c("     ███████╗  ██████╗  ██████╗   ██████╗  ███████╗", C.BRIGHT_MAGENTA, C.BOLD),
+        _c("     ██╔════╝ ██╔═══██╗ ██╔══██╗ ██╔════╝  ██╔════╝", C.BRIGHT_MAGENTA, C.BOLD),
+        _c("     █████╗   ██║   ██║ ██████╔╝ ██║  ███╗ █████╗  ", C.MAGENTA, C.BOLD),
+        _c("     ██╔══╝   ██║   ██║ ██╔══██╗ ██║   ██║ ██╔══╝  ", C.MAGENTA, C.BOLD),
+        _c("     ██║      ╚██████╔╝ ██║  ██║ ╚██████╔╝ ███████╗", C.BLUE, C.BOLD),
+        _c("     ╚═╝       ╚═════╝  ╚═╝  ╚═╝  ╚═════╝  ╚══════╝", C.BLUE, C.BOLD),
         "",
     ]
     print()
