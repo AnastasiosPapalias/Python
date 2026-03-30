@@ -8,6 +8,7 @@ Snake Charmer 🐍 - A collection of Python scripts for everyday life.
  - [The Grand Mystic Fortune Teller 🔮](https://github.com/AnastasiosPapalias/Python/blob/main/fortuneteller.py)
 
 ## Apps
+ - [ScholarForge](https://github.com/AnastasiosPapalias/Python/tree/main/scholarforge)
  - [Seasonal Foods, Greek Ed.](https://github.com/AnastasiosPapalias/Python/blob/main/epohika.py)
  - [Daily Mindfulness](https://github.com/AnastasiosPapalias/Python/blob/main/dailymindfulness/dailymindfulness.py)
 
