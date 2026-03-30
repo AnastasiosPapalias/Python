@@ -1,0 +1,5 @@
+# ScholarForge — optional dependencies
+# Zero packages are required to run. Install these for best results:
+
+pypdf>=4.0.0          # PDF text extraction (highly recommended)
+python-docx>=1.0.0    # DOCX text extraction (recommended)
