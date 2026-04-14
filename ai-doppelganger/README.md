@@ -1,107 +1,100 @@
 # ai-doppelganger
 
-Build an AI that talks like you — trained on your own Facebook Messenger history and deployable locally via Ollama.
-
-Four steps, each usable on its own:
-
-1. **Extract** — Facebook Messenger export → structured dataset (SQLite / JSONL / CSV)
-2. **Pair** — dataset → fine-tuning conversation pairs
-3. **Train** — fine-tune an LLM on your pairs (OpenAI API, Google Colab, or local GPU)
-4. **Run** — deploy via Ollama or any OpenAI-compatible endpoint
+Build an AI that talks like you, running locally via Ollama.
 
 ---
 
-## Requirements
+## Prerequisites
 
-Python 3.8+. No external dependencies for extraction — standard library only.  
-Training requires `openai` (Path A) or `torch` + `unsloth` (Paths B/C).
+1. [Download Ollama](https://ollama.com/download) and install it
+2. Pull a base model — `llama3` is a good default:
+   ```bash
+   ollama pull llama3
+   ```
+3. Get your Facebook Messenger export:
+   > Facebook → Settings → Your Facebook information → Download your information  
+   > Select **Messages** only → Format: **JSON** → Request download
 
 ---
 
-## Quick start
-
-### Step 1 — Get your Facebook data
-
-> Facebook → Settings → Your Facebook information → Download your information  
-> Select **Messages** only → Format: **JSON** → Request download
-
-### Step 2 — Extract
+## Setup
 
 ```bash
-python extract_messenger_personality.py \
+python doppel.py setup \
     --input  "/path/to/facebook-export/messages" \
-    --output "./my-dataset" \
     --my-name "Your Name As On Facebook"
 ```
 
-Outputs into `./my-dataset/`:
+That's it. The script:
+1. Extracts your message history (both sides of every conversation)
+2. Analyzes your language patterns, message length, and verbal style
+3. Auto-generates a system prompt from your data
+4. Creates an Ollama model called `doppel`
 
-| File | Description |
-|------|-------------|
-| `messages.jsonl` | Master dataset — one JSON record per message, both sides |
-| `messages.sqlite` | Fully-indexed SQLite database |
-| `messages.csv` | Spreadsheet-friendly export |
-| `style_profiles.json` | Per-conversation style summaries (your messages only) |
-| `global_summary.json` | Whole-dataset statistics |
-| `markdown_shards/` | Your messages grouped by conversation + month |
-
-### Step 3 — Build a system prompt
-
-Copy `system-prompt-template.md`, fill in your details using `style_profiles.json` and `markdown_shards/` as reference. Save it as `my-system-prompt.md`.
-
-This alone is enough to run a doppelganger without any training — just pass it as the system prompt to any LLM.
-
-### Step 4 — Build fine-tuning pairs
+Then run:
 
 ```bash
-python build_training_pairs.py \
-    --db     ./my-dataset/messages.sqlite \
-    --output ./my-dataset/training_pairs.jsonl \
-    --system-prompt ./my-system-prompt.md \
-    --format openai \
-    --context-turns 3 \
-    --split
-```
-
-Supported formats: `openai` · `sharegpt` · `alpaca` · `raw`
-
-### Step 5 — Train and deploy via Ollama
-
-See `FINE_TUNING.md` for complete instructions. Three paths:
-
-| Path | Cost | GPU | Result |
-|------|------|-----|--------|
-| OpenAI API | ~$1–5 | None | Fine-tuned GPT-4o-mini |
-| Google Colab + Unsloth | Free | T4/A100 | Llama 3 8B → GGUF → Ollama |
-| Local GPU (CUDA/ROCm) | Free | Your own | Same as Colab, on your hardware |
-
-End result:
-
-```bash
-ollama run my-doppelganger
+ollama run doppel
 ```
 
 ---
 
-## No training? Use the system prompt directly
+## Chat from Python
 
-```python
-import anthropic
+```bash
+# Interactive chat
+python doppel.py chat
 
-with open("my-system-prompt.md") as f:
-    system = f.read()
-
-client = anthropic.Anthropic()
-message = client.messages.create(
-    model="claude-opus-4-6",
-    max_tokens=1024,
-    system=system,
-    messages=[{"role": "user", "content": "Hey, what's up?"}]
-)
-print(message.content[0].text)
+# Run a batch of test prompts
+python doppel.py batch
 ```
 
-Works on Claude, GPT, Gemini, Ollama — any OpenAI-compatible endpoint.
+---
+
+## Options
+
+```
+setup
+  --input PATH        Root folder of Facebook export (required)
+  --my-name NAME      Your exact Facebook name as it appears in the export (required)
+  --output PATH       Dataset output folder (default: doppel-dataset/)
+  --base-model NAME   Ollama base model to use (default: llama3)
+  --temperature N     Model temperature, 0.0–1.0 (default: 0.8)
+  --include-groups    Include group chats (default: 1-on-1 only)
+
+chat
+  --model NAME        Ollama model name (default: doppel)
+
+batch
+  --model NAME        Ollama model name (default: doppel)
+  --prompts-file PATH Text file with one prompt per line
+```
+
+---
+
+## Tuning the persona
+
+The auto-generated system prompt is saved at `doppel-dataset/system-prompt.txt`.
+Edit it to add or remove traits, then rebuild the model:
+
+```bash
+ollama create doppel -f doppel-dataset/Modelfile
+```
+
+---
+
+## Fine-tuning (optional)
+
+The system prompt approach works well for style mimicry. For deeper behavioral
+training, see `FINE_TUNING.md` — it covers three training paths:
+
+| Path | Cost | GPU |
+|------|------|-----|
+| OpenAI API | ~$1–5 | None |
+| Google Colab + Unsloth | Free | T4/A100 |
+| Local GPU (CUDA/ROCm) | Free | Your own |
+
+A fine-tuned model replaces the base model in your Modelfile.
 
 ---
 
@@ -109,51 +102,17 @@ Works on Claude, GPT, Gemini, Ollama — any OpenAI-compatible endpoint.
 
 | File | Purpose |
 |------|---------|
-| `extract_messenger_personality.py` | Step 1 — Facebook export → dataset |
-| `build_training_pairs.py` | Step 2 — dataset → training pairs |
-| `system-prompt-template.md` | System prompt template to fill in |
-| `FINE_TUNING.md` | Full training guide (3 paths) |
+| `doppel.py` | Main script: setup, chat, batch |
+| `extract_messenger_personality.py` | Called by setup — Facebook export → dataset |
+| `build_training_pairs.py` | Optional — dataset → fine-tuning pairs |
+| `FINE_TUNING.md` | Fine-tuning guide (3 paths) |
+| `system-prompt-template.md` | Manual template if you prefer to write your own prompt |
 
 ---
 
-## Options
+## Requirements
 
-### extract_messenger_personality.py
-
-```
---input PATH            Root folder of the Facebook export (required)
---output PATH           Where to write the output files (required)
---my-name NAME          Your exact Facebook name as it appears in the export (required)
---include-group-chats   Include group conversations (default: 1-on-1 only)
---min-chars N           Minimum cleaned message length to keep (default: 2)
-```
-
-### build_training_pairs.py
-
-```
---db PATH               Path to messages.sqlite (required)
---output PATH           Output JSONL path
---system-prompt PATH    Path to system prompt file (.txt or .md)
---format                openai | sharegpt | alpaca | raw (default: openai)
---context-turns N       Prior turns to include as context (default: 3)
---max-gap-minutes N     Max gap between trigger and reply (default: 120)
---min-words N           Min words in both messages (default: 2)
---split                 Write 90/10 train/val split
-```
-
----
-
-## How it handles encoding
-
-Facebook exports encode UTF-8 text as latin-1-decoded Unicode, which garbles non-ASCII characters (Greek, accented letters, emoji in some locales). The extractor automatically detects and fixes these sequences so your messages appear correctly in the output.
-
----
-
-## Privacy
-
-- `markdown_shards/` contains raw conversation excerpts — do not share publicly
-- `messages.jsonl` contains contact names — treat with care
-- You have full consent over your own data; your contacts do not
+Python 3.8+. No pip dependencies. Ollama must be installed and running.
 
 ---
 
