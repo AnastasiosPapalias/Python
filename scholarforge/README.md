@@ -1,6 +1,6 @@
 # ScholarForge
 
-**Academic Research & Knowledge Pipeline** — the definitive tool for harvesting academic literature from 20 free sources and building AI-ready knowledge datasets for book writing, research, and LLM workflows.
+**Provenance-first scholarly research workspace** — harvest academic literature from 20 free sources, build trustworthy corpora, and prepare writing-ready exports.
 
 ```
 ███████╗ ██████╗██╗  ██╗ ██████╗ ██╗      █████╗ ██████╗ 
@@ -28,80 +28,92 @@
 
 ## What is ScholarForge?
 
-ScholarForge is a **single Python script** that combines two powerful research workflows:
+ScholarForge is a terminal-based scholarly research workbench. It is **not** an AI agent wrapper and **not** a generic search tool. It is a calm, scholar-first workspace designed for researchers, students, and authors.
 
-| Mode | What it does |
+**What it does:**
+
+| Command | What it does |
 |---|---|
-| **harvest** | Searches **20 academic APIs simultaneously**, scores by relevance, downloads open-access PDFs/EPUBs |
-| **forge** | Scans a folder of documents, extracts all text, exports a structured knowledge dataset for AI/LLM use |
-| **pipeline** | Runs both stages back-to-back: search → download → chunk → export |
+| `scholarforge new` | Create a research project (wizard guides you step by step) |
+| `scholarforge search` | Paste a title or question → expands to queries → harvests 20 APIs |
+| `scholarforge import` | Copy your own documents into the project corpus |
+| `scholarforge build` | Extract and chunk all corpus documents into a knowledge dataset |
+| `scholarforge export` | Export bibliography as BibTeX, CSL-JSON, or annotated Markdown |
+| `scholarforge review-project` | Terminal report of your project state |
 
-Designed for **researchers, authors, and academics** who want to build a comprehensive personal library around any topic — with zero friction and zero cost.
-
----
-
-## Features
-
-### Harvest
-- Queries **20 academic sources simultaneously** — books, papers, preprints, theses, datasets
-- No book/paper split — searches everything at once
-- **Exact-phrase + broad query** per subject for maximum recall
-- **Unicode-aware relevance scoring** with accent-normalised matching (Greek, Cyrillic, CJK)
-- Automatic deduplication by DOI + title + year
-- Exponential back-off retries on rate-limits (429/5xx)
-- Full **contextual inline help** — press `h` at any prompt for detailed explanations
-
-### Forge
-- Reads **12+ file formats**: PDF, DOCX, TXT, Markdown, HTML, XML, JSON, CSV, TSV, RTF, YAML, TeX
-- Semantic chunking with paragraph/sentence boundary snapping
-- Language detection (English, Greek, German, French, Spanish)
-- Exports `knowledge_dataset.jsonl` (AI-ready chunks), `knowledge_sources.csv`, `knowledge_corpus.md`, `knowledge_summary.json`
-
-### General
-- Beautiful ASCII UI: progress bars with ETA, spinners, tables, colour-coded status
-- Fully interactive wizard OR fully non-interactive via flags
-- Windows, macOS, Linux
+**Key differentiators:**
+- Natural-language search — paste a full research title or question, no keyword tuning needed
+- Trust labels on every record (peer-reviewed, preprint, grey literature)
+- Humanities-friendly, not STEM-only
+- Multilingual (Unicode + accent-stripped matching + domain lexicons)
+- Writing-readiness: BibTeX, CSL-JSON, annotated literature-review Markdown
 - Zero mandatory dependencies
 
 ---
 
 ## Installation
 
+### Requirements
+- Python 3.8 or newer ([download here](https://www.python.org/downloads/))
+- Git ([download here](https://git-scm.com/downloads))
+
+### Steps
+
 ```bash
-git clone https://github.com/AnastasiosPapalias/scholarforge.git
-cd scholarforge
-pip install pypdf python-docx   # optional but recommended
+# 1. Clone the repository
+git clone https://github.com/AnastasiosPapalias/Python.git
+cd Python/scholarforge
+
+# 2. Install ScholarForge (editable install — recommended)
+pip install -e .
+
+# 3. Optional: install PDF and DOCX support
+pip install pypdf python-docx
+
+# 4. Verify
+scholarforge --version
 ```
+
+After installation, the `scholarforge` command is available anywhere in your terminal.
 
 ---
 
 ## Quick Start
 
+### Beginner path (wizard)
+
+Just run:
+
 ```bash
-# Interactive — just run it
-python scholarforge.py
+mkdir my-research
+scholarforge new my-research
+```
 
-# Harvest (searches all 20 sources)
-python scholarforge.py harvest \
-  --subjects "quantum mechanics, wave-particle duality" \
-  --output ./my_library
+The wizard will ask you plain-English questions — no jargon. Press Enter to accept any default.
 
-# Greek subjects fully supported
-python scholarforge.py harvest \
-  --subjects "καβείρια μυστήρια, Samothrace, Kabeiroi" \
-  --output ./kabeiroi_research
+Then search:
 
-# Forge a folder of documents
-python scholarforge.py forge /path/to/documents --output ./knowledge_export
+```bash
+scholarforge search --project my-research "effects of microplastics on marine invertebrates"
+```
 
-# Full pipeline
-python scholarforge.py pipeline \
-  --subjects "Byzantine music, neumes" \
-  --output ./byzantine_research
+### Power-user path (flags)
 
-# Get detailed help for any field
-python scholarforge.py --explain min_score
-python scholarforge.py --explain subjects
+```bash
+# Create project without wizard
+scholarforge new --skip-wizard --name marine-plastics --kind thesis my-research
+
+# Search with options
+scholarforge search --project my-research --max-results 50 "microplastics marine invertebrates"
+
+# Export bibliography
+scholarforge export --project my-research --format bibtex
+
+# Build knowledge dataset from corpus
+scholarforge build --project my-research
+
+# Review project state
+scholarforge review-project --project my-research
 ```
 
 ---
@@ -160,32 +172,18 @@ python scholarforge.py --explain subjects
 
 ## Output Structure
 
-### Harvest
+### Project layout (after `scholarforge new`)
 ```
-./my_library/
-├── downloads/          ← Downloaded PDFs, EPUBs, HTMLs
-├── metadata/
-│   ├── filtered_records.jsonl
-│   ├── filtered_records.csv
-│   ├── raw_records.jsonl
-│   └── <source>.jsonl  (one per source)
-└── reports/
-    ├── harvest_summary.json
-    ├── manual_search_links.txt
-    ├── errors.txt
-    └── failed_downloads.txt
+my-research/
+├── project.toml       ← project settings
+├── sources/           ← raw API results
+├── downloads/         ← downloaded PDFs, EPUBs, HTMLs
+├── corpus/            ← documents you imported manually
+├── reports/           ← harvest summaries, error logs
+└── exports/           ← BibTeX, CSL-JSON, Markdown, knowledge dataset
 ```
 
-### Forge
-```
-./knowledge_export/
-├── knowledge_dataset.jsonl   ← AI-ready chunks
-├── knowledge_sources.csv
-├── knowledge_corpus.md
-└── knowledge_summary.json
-```
-
-### Chunk format
+### Knowledge dataset chunk format (`build`)
 ```json
 {
   "source_path": "/path/to/file.pdf",
@@ -206,88 +204,131 @@ python scholarforge.py --explain subjects
 ## CLI Reference
 
 ```
-python scholarforge.py [--version] [--no-banner] [--no-color]
-                       [--verbose] [--deps] [--explain FIELD]
-                       MODE [options]
+scholarforge [--version] [--no-banner] [--no-color] [--verbose]
 
-Modes:
-  harvest    Search all 20 APIs and download documents
-  forge      Build knowledge dataset from a document folder
-  pipeline   Harvest then forge in sequence
+Commands:
+  new [DIR]                   Create a research project (wizard on TTY)
+    --skip-wizard             Skip wizard, use flags instead
+    --name NAME               Project name
+    --kind thesis|article|book|exploration
+    --goal "..."              Research goal in one sentence
+    --field humanities|social|life|physical|cs|interdisciplinary
+    --recency 5y|10y|any
+    --trust-floor peer_reviewed|peer_or_preprint|any
+    --languages en,fr,...
 
-harvest options:
-  --subjects, -s      Comma-separated subjects (Unicode supported)
-  --output, -o        Output directory
-  --max-results N     Max results per source per query (default: 25)
-  --min-score SCORE   Minimum relevance score (default: 10.0)
-  --max-downloads N   Max documents to download (default: 100)
-  --no-download       Skip downloading (metadata-only run)
+  search [--project DIR] "title or question"
+    --max-results N           Results per source (default: 25)
+    --min-score N             Relevance threshold (default: 10)
+    --no-download             Metadata-only, skip downloads
+    --dry-run                 Show query plan only
+    --multilingual            Include multilingual query variants
+    --recent                  Bias toward recent publications
 
-forge options:
-  DIR                 Source folder to scan
-  --output, -o        Output directory
-  --chunk-size N      Characters per chunk (default: 3500)
-  --overlap N         Overlap between chunks (default: 350)
-  --extensions EXT…   Whitelist of extensions, e.g. pdf txt docx
-  --include-hidden    Also scan hidden files
+  import [--project DIR] SOURCE_DIR
 
---explain FIELD:
-  subjects, max_results, min_score, max_downloads, chunk_size, overlap
+  build [--project DIR]
+    --chunk-size N            Characters per chunk (default: 3500)
+    --overlap N               Overlap between chunks (default: 350)
+    --source corpus|downloads|all
+
+  export [--project DIR] --format bibtex|csljson|markdown
+    --output PATH             Output file path
+    --title "..."             Title for Markdown export
+
+  review-project [--project DIR]
+
+Legacy commands (still work):
+  harvest, forge, pipeline
 ```
 
 ---
 
-## LLM / RAG Integration
+## API Keys (optional)
 
-```python
-import json, chromadb
+ScholarForge works without any API keys. Keys improve rate limits and result quality for two sources:
 
-client = chromadb.Client()
-col    = client.create_collection("my_research")
+| Source | Key needed | Sign up |
+|---|---|---|
+| CORE | Free | https://core.ac.uk/services/api |
+| Semantic Scholar | Free | https://www.semanticscholar.org/product/api |
 
-with open("knowledge_dataset.jsonl") as f:
-    for i, line in enumerate(f):
-        chunk = json.loads(line)
-        col.add(
-            documents=[chunk["text"]],
-            metadatas=[{"source": chunk["file_name"], "page": chunk["page"]}],
-            ids=[f"chunk_{i}"]
-        )
+### How to add keys
+
+**Option A — global config file (recommended)**
+
+```bash
+scholarforge config --init
+```
+
+This creates `~/.scholarforge.toml`. Open it in any text editor and fill in your keys:
+
+```toml
+[api_keys]
+core_api_key = "your-core-key-here"
+semantic_scholar_key = "your-s2-key-here"
+```
+
+**Option B — environment variables**
+
+```bash
+# Add to your shell profile (~/.bashrc, ~/.zshrc, or Windows environment variables)
+export SCHOLARFORGE_CORE_API_KEY="your-key"
+export SCHOLARFORGE_SEMANTIC_SCHOLAR_KEY="your-key"
+```
+
+**Option C — .env file**
+
+Create a `.env` file in your project folder:
+
+```
+SCHOLARFORGE_CORE_API_KEY=your-key
+SCHOLARFORGE_SEMANTIC_SCHOLAR_KEY=your-key
+```
+
+### Check your current key status
+
+```bash
+scholarforge config
 ```
 
 ---
 
 ## Requirements
 
-- **Python 3.8+** (zero mandatory third-party packages)
-- `pip install pypdf` — PDF extraction
+- **Python 3.8+** — zero mandatory third-party packages
+- `pip install pypdf` — PDF extraction (highly recommended)
 - `pip install python-docx` — DOCX extraction
-
-```bash
-python scholarforge.py --deps   # check status
-```
 
 ---
 
 ## Changelog
 
+### v3.4.0-beta.1 (2026-04-21)
+- Modular package architecture (`scholarforge/` package)
+- New CLI: `new`, `search`, `import`, `build`, `export`, `review-project`
+- Project workspaces with `project.toml`
+- Beginner onboarding wizard (plain-English, no jargon)
+- Trust labels + provenance on every record
+- BibTeX, CSL-JSON, and annotated Markdown exports
+- Title/question → deterministic query expansion (no AI required)
+- Domain lexicons: biology, neuroscience, psychiatry, classics, philosophy, music
+- 65-test suite
+
 ### v3.3.0 (2026-03-30)
-- **+7 new sources** → 20 total: Figshare, HAL, SSRN, Paperity, PMC Full-Text, OA.mg, EThOS/DART-Europe
-- Sources grouped by type in UI
+- +7 new sources → 20 total: Figshare, HAL, SSRN, Paperity, PMC Full-Text, OA.mg, EThOS/DART-Europe
 
 ### v3.2.0
-- Removed book/paper mode — all sources always active
+- Removed book/paper mode split — all sources always active
 - Added arXiv, Europe PMC, Zenodo, CORE, DOAJ, OpenAIRE (13 total)
 
 ### v3.1.0
-- Fixed summary box overflow for long paths/source lists
 - Full Unicode support + accent-normalised matching
 - Inline `h` help at every prompt; `--explain FIELD` CLI flag
-- Pipeline mode: full harvest + forge configuration
+- Pipeline mode
 
 ### v3.0.0
-- Initial release: combined bibliography_harvester + build_knowledge_dataset
-- Interactive ASCII wizard
+- Initial release: combined bibliography harvester + knowledge dataset builder
 
 ---
 
