@@ -1,0 +1,198 @@
+/* ScholarForge — site styles.
+   Calm, scholarly, typographic. Modelled on feynman.is:
+   generous whitespace, serif body, restrained colour. */
+
+:root {
+  --ink: #1a1a1a;
+  --ink-soft: #4a4a4a;
+  --paper: #fbfaf7;
+  --paper-rule: #e6e2d6;
+  --accent: #5a3a1f;
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "URW Palladio L",
+           "Book Antiqua", Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --measure: 34rem;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 5rem;
+}
+
+nav.top {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem 0;
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--paper-rule);
+  padding-bottom: 0.9rem;
+}
+nav.top a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 1px dotted transparent;
+}
+nav.top a:hover, nav.top a.current {
+  color: var(--ink);
+  border-bottom-color: var(--ink-soft);
+}
+nav.top .brand {
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+nav.top .spacer { flex: 1; }
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+h1 { font-size: 2.1rem; line-height: 1.25; margin: 0 0 0.4rem; }
+.lede {
+  color: var(--ink-soft);
+  font-style: italic;
+  font-size: 1.1rem;
+  margin: 0 0 2.2rem;
+}
+h2 {
+  font-size: 1.35rem;
+  margin-top: 3rem;
+  margin-bottom: 0.6rem;
+  border-top: 1px solid var(--paper-rule);
+  padding-top: 2rem;
+}
+h3 {
+  font-size: 1.08rem;
+  margin-top: 1.8rem;
+  margin-bottom: 0.3rem;
+  color: var(--accent);
+}
+
+p { margin: 0 0 1.1rem; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { color: var(--ink); }
+
+code, pre, kbd {
+  font-family: var(--mono);
+  font-size: 0.92em;
+}
+code {
+  background: #f1ede1;
+  padding: 0.08em 0.35em;
+  border-radius: 3px;
+  color: var(--accent);
+}
+pre {
+  background: #f1ede1;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  border-left: 3px solid var(--accent);
+  border-radius: 2px;
+  line-height: 1.5;
+}
+pre code { background: none; padding: 0; color: var(--ink); }
+
+blockquote {
+  margin: 1.4rem 0;
+  padding: 0.2rem 0 0.2rem 1.2rem;
+  border-left: 3px solid var(--paper-rule);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+ul, ol { padding-left: 1.4rem; margin: 0 0 1.1rem; }
+li { margin-bottom: 0.3rem; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2rem 0 1.6rem;
+  font-size: 0.95rem;
+}
+th, td {
+  text-align: left;
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--paper-rule);
+  vertical-align: top;
+}
+th { font-weight: 600; color: var(--ink); border-bottom-color: var(--ink-soft); }
+
+.kicker {
+  font-family: var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.7rem;
+}
+
+.card {
+  border: 1px solid var(--paper-rule);
+  padding: 1.2rem 1.4rem;
+  margin: 1rem 0 1.2rem;
+  background: #fefdfa;
+}
+.card h3 { margin-top: 0; }
+
+.cta {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  margin-top: 0.4rem;
+  letter-spacing: 0.02em;
+}
+.cta:hover { background: var(--accent); color: var(--paper); }
+
+footer {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--paper-rule);
+}
+footer a { color: var(--ink-soft); }
+
+.muted { color: var(--ink-soft); }
+.tag {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border: 1px solid var(--paper-rule);
+  padding: 0.1rem 0.45rem;
+  border-radius: 2px;
+  margin-right: 0.25rem;
+}
+.tag.free { color: #3a6b3a; border-color: #b8cdb8; }
+.tag.premium { color: var(--accent); border-color: #d6c8ad; }

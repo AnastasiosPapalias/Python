@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ScholarForge — the provenance-first scholarly research workspace</title>
+<meta name="description" content="Terminal-based scholarly research workbench. Harvest 20 academic APIs, build trustworthy corpora, prepare writing-ready exports. Calm, scholar-first, zero mandatory dependencies.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="top">
+  <span class="brand">ScholarForge</span>
+  <a href="index.html" class="current">Overview</a>
+  <a href="features.html">Features</a>
+  <a href="install.html">Install</a>
+  <a href="cli.html">CLI</a>
+  <a href="sources.html">Sources</a>
+  <a href="pricing.html">Pricing</a>
+  <span class="spacer"></span>
+  <a href="https://github.com/AnastasiosPapalias/Python/tree/main/scholarforge">GitHub</a>
+</nav>
+
+<main class="wrap">
+  <div class="kicker">v3.4.0-beta.1 · MIT · Python 3.8+</div>
+  <h1>The provenance-first scholarly research workspace.</h1>
+  <p class="lede">Terminal-native. Paste a title or a question; ScholarForge expands it deterministically, harvests twenty academic sources, labels the trust of every record, and hands you a writing-ready export. No AI wrapper. No account. No lock-in.</p>
+
+  <a class="cta" href="install.html">Install in one minute →</a>
+
+  <h2>What it does</h2>
+  <p>ScholarForge is built for researchers, students, and authors who want calm tools. You give it a research goal in plain language. It builds the query plan, harvests the sources, keeps the provenance, and gets out of the way.</p>
+
+  <pre><code>$ scholarforge new my-thesis
+$ scholarforge search --project my-thesis "neural correlates of OCD compulsions"
+$ scholarforge export --project my-thesis --format bibtex</code></pre>
+
+  <h2>Why it exists</h2>
+  <p>Generic search engines throw away the scholarly signal. AI agents hallucinate citations. Reference managers capture what you already found, not what is out there. ScholarForge sits before all of them: a calm harvester that surfaces what the open-access ecosystem actually has, labelled so you can trust it.</p>
+
+  <h2>Three promises</h2>
+  <div class="card">
+    <h3>Deterministic</h3>
+    <p>The freemium core has no model in the loop. Same input, same query plan, same record set — reproducible across machines and years.</p>
+  </div>
+  <div class="card">
+    <h3>Provenance-first</h3>
+    <p>Every record carries a source type and trust label — peer-reviewed, preprint, grey literature, book, dataset. The label is in the BibTeX note, the CSL-JSON field, and the annotated Markdown.</p>
+  </div>
+  <div class="card">
+    <h3>Scholar-first</h3>
+    <p>Humanities-friendly. Multilingual-friendly. Unicode and accent-aware. Domain lexicons for biology, neuroscience, psychiatry, classics, philosophy, and music. Zero mandatory third-party packages.</p>
+  </div>
+
+  <h2>Who it is for</h2>
+  <ul>
+    <li>PhD candidates assembling literature review matrices</li>
+    <li>Authors writing long-form books with hundreds of sources</li>
+    <li>Independent researchers without institutional database access</li>
+    <li>Clinicians building evidence files that have to survive audit</li>
+    <li>Anyone who would rather read than fight their tooling</li>
+  </ul>
+
+  <h2>Status</h2>
+  <p>Freemium <span class="tag free">stable</span> · stages 0–7 complete, 85-test suite green. Premium <span class="tag premium">seams ready</span> · atlas, clusters, contradictions, thesis-pack, book-pack, memory-graph interfaces landed in v3.4.0-beta.1; paid build in progress.</p>
+</main>
+
+<footer>
+  ScholarForge is built by <a href="https://github.com/AnastasiosPapalias">Anastasios Papalias</a> — Thessaloniki, Greece.
+  MIT-licensed. <a href="https://github.com/AnastasiosPapalias/Python/tree/main/scholarforge">Source</a>.
+</footer>
+</body>
+</html>

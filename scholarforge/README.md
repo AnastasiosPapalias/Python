@@ -304,16 +304,18 @@ scholarforge config
 
 ## Changelog
 
-### v3.4.0-beta.1 (2026-04-21)
+### v3.4.0-beta.1 (2026-04-23)
 - Modular package architecture (`scholarforge/` package)
-- New CLI: `new`, `search`, `import`, `build`, `export`, `review-project`
+- New CLI: `new`, `search`, `import`, `build`, `export`, `review-project`, `config`, `premium`
 - Project workspaces with `project.toml`
 - Beginner onboarding wizard (plain-English, no jargon)
 - Trust labels + provenance on every record
 - BibTeX, CSL-JSON, and annotated Markdown exports
 - Title/question → deterministic query expansion (no AI required)
 - Domain lexicons: biology, neuroscience, psychiatry, classics, philosophy, music
-- 65-test suite
+- **Premium seams** — atlas, clusters, contradictions, thesis-pack, book-pack, memory-graph (stubs + activation gate)
+- **Static promotional site** — 6-page feynman.is-style site in `site/`
+- 95-test suite
 
 ### v3.3.0 (2026-03-30)
 - +7 new sources → 20 total: Figshare, HAL, SSRN, Paperity, PMC Full-Text, OA.mg, EThOS/DART-Europe

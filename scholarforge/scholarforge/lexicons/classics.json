@@ -1,0 +1,51 @@
+{
+  "domain": "classics",
+  "seeds": {
+    "Samothrace": [
+      "mysteries of Samothrace",
+      "Kabeiroi",
+      "Cabeiri",
+      "Kabeirian mysteries"
+    ],
+    "Kabeiroi": [
+      "Cabeiri",
+      "Samothracian mysteries",
+      "Kabeirian mysteries"
+    ],
+    "Eleusinian mysteries": [
+      "Eleusis",
+      "Demeter",
+      "Persephone",
+      "kykeon",
+      "mystai"
+    ],
+    "Orphism": [
+      "Orphic mysteries",
+      "Orphic hymns",
+      "Bacchic mysteries"
+    ],
+    "Dionysian mysteries": [
+      "Bacchic rites",
+      "maenads",
+      "Dionysus cult"
+    ],
+    "mystery cults": [
+      "mystery religions",
+      "initiation rites",
+      "ritual initiation",
+      "telestai"
+    ],
+    "Pan": [
+      "god Pan",
+      "death of Pan",
+      "Arcadian religion",
+      "pastoral deities"
+    ]
+  },
+  "multilingual": {
+    "Samothrace": ["Σαμοθράκη", "Samothrake"],
+    "Kabeiroi": ["Καβείροι", "Καβείρια μυστήρια", "Cabires"],
+    "Eleusinian mysteries": ["Ελευσίνια μυστήρια", "mystères d'Éleusis"],
+    "Pan": ["Πάν", "θάνατος του Πάνα"]
+  }
+}

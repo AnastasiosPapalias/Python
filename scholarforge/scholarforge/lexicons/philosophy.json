@@ -1,0 +1,39 @@
+{
+  "domain": "philosophy",
+  "seeds": {
+    "phenomenology": [
+      "Husserl",
+      "Merleau-Ponty",
+      "lived experience",
+      "intentionality"
+    ],
+    "hermeneutics": [
+      "Gadamer",
+      "interpretation",
+      "hermeneutic circle",
+      "Ricoeur"
+    ],
+    "philosophy of mind": [
+      "qualia",
+      "consciousness",
+      "functionalism",
+      "hard problem of consciousness"
+    ],
+    "ethics": [
+      "virtue ethics",
+      "deontology",
+      "consequentialism",
+      "moral philosophy"
+    ],
+    "epistemology": [
+      "knowledge",
+      "justification",
+      "belief",
+      "Gettier problem"
+    ]
+  },
+  "multilingual": {
+    "phenomenology": ["φαινομενολογία", "phénoménologie", "Phänomenologie"],
+    "hermeneutics": ["ερμηνευτική", "herméneutique", "Hermeneutik"]
+  }
+}

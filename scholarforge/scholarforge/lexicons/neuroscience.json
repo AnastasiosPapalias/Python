@@ -1,0 +1,43 @@
+{
+  "domain": "neuroscience",
+  "seeds": {
+    "neuroplasticity": [
+      "synaptic plasticity",
+      "brain plasticity",
+      "neural reorganization",
+      "cortical remapping",
+      "experience-dependent plasticity"
+    ],
+    "neuroplastic brain": [
+      "neuroplasticity",
+      "synaptic plasticity",
+      "brain plasticity"
+    ],
+    "working memory": [
+      "short-term memory",
+      "prefrontal cortex",
+      "executive function"
+    ],
+    "default mode network": [
+      "DMN",
+      "resting state",
+      "intrinsic connectivity"
+    ],
+    "neuromodulation": [
+      "transcranial magnetic stimulation",
+      "TMS",
+      "deep brain stimulation",
+      "tDCS"
+    ],
+    "connectome": [
+      "brain connectivity",
+      "white matter tractography",
+      "diffusion MRI"
+    ]
+  },
+  "multilingual": {
+    "neuroplasticity": ["νευροπλαστικότητα", "neuroplasticité", "Neuroplastizität", "neuroplasticidad"],
+    "working memory": ["εργαζόμενη μνήμη", "mémoire de travail", "Arbeitsgedächtnis"],
+    "connectome": ["κονέκτομα", "connectome", "Konnektom"]
+  }
+}

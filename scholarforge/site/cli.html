@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CLI reference — ScholarForge</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="top">
+  <span class="brand">ScholarForge</span>
+  <a href="index.html">Overview</a>
+  <a href="features.html">Features</a>
+  <a href="install.html">Install</a>
+  <a href="cli.html" class="current">CLI</a>
+  <a href="sources.html">Sources</a>
+  <a href="pricing.html">Pricing</a>
+  <span class="spacer"></span>
+  <a href="https://github.com/AnastasiosPapalias/Python/tree/main/scholarforge">GitHub</a>
+</nav>
+
+<main class="wrap">
+  <div class="kicker">CLI reference</div>
+  <h1>Seven verbs. That is all.</h1>
+  <p class="lede">Every command accepts <code>--project DIR</code>; if omitted, ScholarForge walks up from the current directory to find the nearest project root.</p>
+
+  <h2>new</h2>
+  <p>Create a research project. On a TTY with no flags, launches the wizard; otherwise uses flags.</p>
+  <pre><code>scholarforge new [DIR]
+    [--wizard | --skip-wizard]
+    [--name NAME]
+    [--kind thesis|article|book|exploration]
+    [--goal "..."]
+    [--field humanities|social|life|physical|cs|interdisciplinary]
+    [--recency 5y|10y|any]
+    [--trust-floor peer_reviewed|peer_or_preprint|any]
+    [--languages en,fr,...]</code></pre>
+
+  <h2>search</h2>
+  <p>Paste a title or question. ScholarForge expands it and harvests every source.</p>
+  <pre><code>scholarforge search [--project DIR] "title or question"
+    [--max-results N]       (default 25 per source)
+    [--min-score N]         (default 10)
+    [--no-download]         (metadata only)
+    [--dry-run]             (show query plan only)
+    [--multilingual]        (expand into other languages)
+    [--recent]              (bias toward recent years)</code></pre>
+
+  <h2>import</h2>
+  <p>Copy your own files into the project corpus.</p>
+  <pre><code>scholarforge import [--project DIR] SOURCE_DIR</code></pre>
+
+  <h2>build</h2>
+  <p>Extract, chunk, and hash every document in the corpus into a JSONL dataset.</p>
+  <pre><code>scholarforge build [--project DIR]
+    [--chunk-size N]        (default 3500 chars)
+    [--overlap N]           (default 350 chars)
+    [--source corpus|downloads|all]</code></pre>
+
+  <h2>export</h2>
+  <p>Provenance-aware bibliography in three formats.</p>
+  <pre><code>scholarforge export [--project DIR] --format bibtex|csljson|markdown
+    [--output PATH]
+    [--title "..."]         (Markdown only)</code></pre>
+
+  <h2>review-project</h2>
+  <p>Terminal report of the current project state.</p>
+  <pre><code>scholarforge review-project [--project DIR]</code></pre>
+
+  <h2>config</h2>
+  <p>Inspect or initialise the global config at <code>~/.scholarforge.toml</code>.</p>
+  <pre><code>scholarforge config                # show current key status
+scholarforge config --init         # write a commented template</code></pre>
+
+  <h2>premium <span class="tag premium">v3.4+</span></h2>
+  <p>Premium activation status and seam listing.</p>
+  <pre><code>scholarforge premium               # show status and available seams
+scholarforge premium --features    # same, explicitly</code></pre>
+
+  <h2>Legacy verbs</h2>
+  <p>The pre-3.4 verbs <code>harvest</code>, <code>forge</code>, and <code>pipeline</code> remain available for scripts written against older versions. They dispatch through the same codepaths.</p>
+
+  <h2>Global flags</h2>
+  <pre><code>--version       show version and exit
+--no-banner     suppress the startup banner
+--no-color      disable ANSI colour output
+--verbose       verbose logging
+-h, --help      show help</code></pre>
+</main>
+
+<footer>
+  <a href="features.html">← Features</a> · <a href="sources.html">Sources →</a>
+</footer>
+</body>
+</html>

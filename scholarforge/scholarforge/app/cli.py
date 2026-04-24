@@ -23,7 +23,7 @@ from typing import List, Optional
 import scholarforge as _pkg
 
 
-NEW_VERBS = {"new", "search", "import", "build", "review-project", "review_project", "export", "config"}
+NEW_VERBS = {"new", "search", "import", "build", "review-project", "review_project", "export", "config", "premium"}
 
 # Global flags that can precede a new verb without breaking dispatch.
 # These mirror the legacy top-level flags so invocations like
@@ -57,6 +57,7 @@ def main(argv: Optional[List[str]] = None) -> int:
             "review_project": _cmd_review,
             "export": _cmd_export,
             "config": _cmd_config,
+            "premium": _cmd_premium,
         }[verb]
         return handler(rest)
 
@@ -447,6 +448,52 @@ def _cmd_config(argv: List[str]) -> int:
         print("Then edit ~/.scholarforge.toml")
     else:
         print("Keys marked 'not set' are optional — ScholarForge works without them.")
+
+    return 0
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# premium  (Stage 8 — activation status + seam listing)
+# ─────────────────────────────────────────────────────────────────────────────
+
+_PREMIUM_FEATURES = [
+    ("atlas",          "Citation / co-citation graph over your corpus"),
+    ("clusters",       "Topic clustering across harvested records"),
+    ("contradictions", "Claim-conflict detection between sources"),
+    ("thesis-pack",    "Thesis scaffold export (chapters + literature matrix)"),
+    ("book-pack",      "Book scaffold export (front matter + chapters + bib)"),
+    ("memory-graph",   "Persistent cross-project research graph"),
+]
+
+
+def _cmd_premium(argv: List[str]) -> int:
+    """scholarforge premium [--status | --features]
+
+    Show activation status and the list of premium seams. All entry points
+    raise PremiumNotAvailableError when called without activation.
+    """
+    from scholarforge import premium as _premium
+
+    status = _premium.get_status()
+    show_features = _pop_flag(argv, "--features", "-l") or not argv
+
+    print("ScholarForge — Premium")
+    if status.active:
+        src = {"env": "environment variable",
+               "config": "~/.scholarforge.toml",
+               "unlock": "test unlock flag"}.get(status.source, status.source)
+        print(f"  status : ACTIVE ({status.key_preview}, from {src})")
+    else:
+        print("  status : inactive")
+        print("  activate by setting SCHOLARFORGE_PREMIUM_KEY, or by adding")
+        print("  a [premium] license_key = \"...\" block to ~/.scholarforge.toml")
+
+    if show_features:
+        print()
+        print("Seams:")
+        for name, desc in _PREMIUM_FEATURES:
+            mark = "✓" if status.active else "·"
+            print(f"  {mark} {name:<16} {desc}")
 
     return 0
 

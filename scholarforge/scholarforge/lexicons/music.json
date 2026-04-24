@@ -1,0 +1,30 @@
+{
+  "domain": "music",
+  "seeds": {
+    "Byzantine music": [
+      "neumes",
+      "psaltic art",
+      "chant",
+      "Octoechos"
+    ],
+    "vinyl surface noise": [
+      "phonograph crackle",
+      "stochastic noise",
+      "1/f noise",
+      "pink noise"
+    ],
+    "auditory processing": [
+      "psychoacoustics",
+      "cochlear processing",
+      "auditory cortex"
+    ],
+    "minimal techno": [
+      "microhouse",
+      "dub techno",
+      "minimalism"
+    ]
+  },
+  "multilingual": {
+    "Byzantine music": ["βυζαντινή μουσική", "musique byzantine"]
+  }
+}

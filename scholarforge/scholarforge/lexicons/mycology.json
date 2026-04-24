@@ -1,0 +1,37 @@
+{
+  "domain": "mycology",
+  "seeds": {
+    "truffle": [
+      "Tuber melanosporum",
+      "Tuber aestivum",
+      "Tuber magnatum",
+      "ectomycorrhiza",
+      "truffle hunting"
+    ],
+    "Tuber melanosporum": [
+      "black truffle",
+      "Périgord truffle",
+      "ectomycorrhiza"
+    ],
+    "Tuber aestivum": [
+      "summer truffle",
+      "Burgundy truffle",
+      "Tuber uncinatum"
+    ],
+    "mandrake": [
+      "Mandragora officinarum",
+      "Mandragora autumnalis",
+      "historical botany",
+      "Solanaceae"
+    ],
+    "ectomycorrhiza": [
+      "mycorrhizal symbiosis",
+      "forest soil",
+      "fungal community"
+    ]
+  },
+  "multilingual": {
+    "truffle": ["τρούφα", "truffe", "Trüffel", "tartufo"],
+    "mandrake": ["μανδραγόρας", "mandragore", "Alraune", "mandragora"]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "domain": "psychiatry",
+  "seeds": {
+    "OCD": [
+      "obsessive-compulsive disorder",
+      "exposure response prevention",
+      "ERP therapy",
+      "Y-BOCS"
+    ],
+    "obsessive-compulsive disorder": [
+      "OCD",
+      "obsessions",
+      "compulsions",
+      "ERP therapy"
+    ],
+    "depression": [
+      "major depressive disorder",
+      "MDD",
+      "HAM-D",
+      "MADRS",
+      "SSRI"
+    ],
+    "eating disorders": [
+      "anorexia nervosa",
+      "bulimia nervosa",
+      "binge eating disorder",
+      "body image"
+    ],
+    "theory of mind": [
+      "mentalization",
+      "social cognition",
+      "perspective taking"
+    ],
+    "GLP-1": [
+      "semaglutide",
+      "liraglutide",
+      "tirzepatide",
+      "obesity pharmacotherapy"
+    ]
+  },
+  "multilingual": {
+    "OCD": ["ιδεοψυχαναγκαστική διαταραχή", "trouble obsessionnel compulsif", "Zwangsstörung"],
+    "depression": ["κατάθλιψη", "dépression", "Depression"]
+  }
+}
