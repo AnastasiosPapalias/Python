@@ -10,7 +10,6 @@ Snake Charmer 🐍 - A collection of Python scripts for everyday life.
 
 ## Apps
 
-- [ScholarForge](https://github.com/AnastasiosPapalias/Python/tree/main/scholarforge) - A single-script Python CLI that searches 20 free academic APIs simultaneously, downloads open-access papers, and builds AI-ready knowledge datasets for research and book writing.
 - [AI Doppelganger](https://github.com/AnastasiosPapalias/Python/tree/main/ai-doppelganger) - Build an AI that talks like you, running locally via Ollama, trained on your Facebook Messenger export. One command to set up; no cloud required.
 - [Seasonal Foods, Greek Ed.](https://github.com/AnastasiosPapalias/Python/blob/main/epohika.py) - A Tkinter GUI app that displays seasonal fruits, vegetables, fish, seafood, mushrooms, wild greens, legumes, and nuts by month for Thessaloniki, Greece.
 - [Daily Mindfulness](https://github.com/AnastasiosPapalias/Python/blob/main/dailymindfulness/dailymindfulness.py) - A Tkinter GUI app for daily mindfulness practice featuring 21 lessons with theory, tasks, and guided exercises, plus reflection journaling and progress tracking.
